@@ -15,12 +15,13 @@ const promise = new Promise( function (resolve, reject) {
 
 // errors if there was a problem with request
   request.onerror = function() {
-    throw 'There was a connection error of some sort'
+    throw 'There was a connection error of some sort';
   };
 
   request.send();
 });
 
+// second request
 promise.then(function(result){
   const latitude = result.location.latitude;
   const longitude = result.location.longitude;
@@ -33,10 +34,10 @@ promise.then(function(result){
     if (request.status >= 200 && request.status < 400) {
       const weatherData = JSON.parse(request.responseText);
 
-      cityName(weatherData)
-      temp(weatherData)
-      img(weatherData)
-      description(weatherData)
+      cityName(weatherData);
+      temp(weatherData);
+      img(weatherData);
+      description(weatherData);
 
     } else {
       throw 'reached second server but there was a problem';
@@ -44,7 +45,7 @@ promise.then(function(result){
   };
 
   request.onerror = function() {
-    throw 'There was a connection error of some sort at second server'
+    throw 'There was a connection error of some sort at second server';
   };
 
   request.send();
@@ -62,9 +63,9 @@ function temp(weatherData) {
   // convert from kelvin to farenheight or celcius
   let tempKelvin = weatherData.main.temp;
   if (weatherData.sys.country === 'US') {
-    temperature.innerHTML = `${Math.round(tempKelvin*(9/5)-459.67)}&deg;F`
+    temperature.innerHTML = `${Math.round(tempKelvin*(9/5)-459.67)}&deg;F`;
   } else {
-    temperature.innerHTML = `${Math.round(tempKelvin- 273.15)}&deg;C`
+    temperature.innerHTML = `${Math.round(tempKelvin- 273.15)}&deg;C`;
   }
 }
 
