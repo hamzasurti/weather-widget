@@ -1,0 +1,61 @@
+html {
+   margin: 0px;
+   height: 100%;
+   width: 100%;
+   background-color: #596475;
+}
+
+body {
+  text-align: center;
+  font-family: sans-serif;
+  color: #1F2232;
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#top, #bottom, #left, #right {
+	background: #1F2232;
+	position: fixed;
+	}
+#left, #right {
+	top: 0; bottom: 0;
+	width: 30px;
+	}
+	#left { left: 0; }
+	#right { right: 0; }
+
+#top, #bottom {
+	left: 0; right: 0;
+	height: 30px;
+	}
+#top {
+  top: 0;
+}
+#bottom {
+  bottom: 0;
+}
+
+.main {
+  font-size: 8vmin;
+  min-height: 100%;
+}
+
+#conditions {
+  color: #1F2232;
+  margin-top: 2em;
+  font-size: 4vmin
+}
+
+#temperature {
+  font-size: 10vmin;
+}
+
+#weather {
+  margin-bottom: 0;
+}
+
+img {
+  width: 50px;
+}
