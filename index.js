@@ -24,6 +24,7 @@ const promise = new Promise( function (resolve, reject) {
 promise.then(function(result){
   const latitude = result.location.latitude;
   const longitude = result.location.longitude;
+
   const request = new XMLHttpRequest();
   request.open('GET', `https://weathersync.herokuapp.com/weather/${latitude},${longitude}`, true);
 
@@ -32,27 +33,10 @@ promise.then(function(result){
     if (request.status >= 200 && request.status < 400) {
       const weatherData = JSON.parse(request.responseText);
 
-      // updates city name
-      let cityName = document.getElementById('city-name');
-      cityName.innerHTML = weatherData.name;
-
-      // updates temperature based on location
-      let temperature = document.getElementById('temperature');
-      // convert from kelvin to farenheight or celcius
-      let tempKelvin = weatherData.main.temp;
-      if (weatherData.sys.country === 'US') {
-        temperature.innerHTML = `${Math.round(tempKelvin*(9/5)-459.67)}&deg;F`
-      } else {
-        temperature.innerHTML = `${Math.round(tempKelvin- 273.15)}&deg;C`
-      }
-
-      // updates image with png from open weather map
-      let image = document.getElementById('image');
-      image.src = `http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`;
-
-      // changes weather description
-      let weather = document.getElementById('weather');
-      weather.innerHTML = weatherData.weather[0].description;
+      cityName(weatherData)
+      temp(weatherData)
+      img(weatherData)
+      description(weatherData)
 
     } else {
       throw 'reached second server but there was a problem';
@@ -66,6 +50,32 @@ promise.then(function(result){
   request.send();
 })
 
-function cityName() {
+function cityName(weatherData) {
+  // updates city name
+  let name = document.getElementById('city-name');
+  name.innerHTML = weatherData.name;
+}
 
+function temp(weatherData) {
+  // updates temperature based on location
+  let temperature = document.getElementById('temperature');
+  // convert from kelvin to farenheight or celcius
+  let tempKelvin = weatherData.main.temp;
+  if (weatherData.sys.country === 'US') {
+    temperature.innerHTML = `${Math.round(tempKelvin*(9/5)-459.67)}&deg;F`
+  } else {
+    temperature.innerHTML = `${Math.round(tempKelvin- 273.15)}&deg;C`
+  }
+}
+
+function img(weatherData) {
+  // updates image with png from open weather map
+  let image = document.getElementById('image');
+  image.src = `http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`;
+}
+
+function description(weatherData) {
+  // changes weather description
+  let weather = document.getElementById('weather');
+  weather.innerHTML = weatherData.weather[0].description;
 }
